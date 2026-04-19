@@ -35,14 +35,14 @@ func (m LOCModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m LOCModel) View() string {
 	if m.err != nil {
-		return ErrorStyle.Render(fmt.Sprintf("Error: %v", m.err))
+		return ErrorStyle.Render("ERROR: " + m.err.Error())
 	}
 	if m.quit {
 		return ""
 	}
 
 	var s strings.Builder
-	s.WriteString(HeaderStyle.Render(" 📊 Lines of Code - Language Breakdown ") + "\n\n")
+	s.WriteString(HeaderStyle.Render(" LINES OF CODE ") + "\n\n")
 
 	// Sort languages by lines
 	type entry struct {

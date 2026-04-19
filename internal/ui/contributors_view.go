@@ -37,7 +37,7 @@ func (m ContributorsModel) View() string {
 	}
 
 	var s strings.Builder
-	s.WriteString(HeaderStyle.Render(" 👥 Top Contributors ") + "\n\n")
+	s.WriteString(HeaderStyle.Render(" TOP CONTRIBUTORS ") + "\n\n")
 
 	nameWidth := 25
 	countWidth := 10

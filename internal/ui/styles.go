@@ -3,17 +3,17 @@ package ui
 import "github.com/charmbracelet/lipgloss"
 
 var (
-	// Colors
-	PrimaryColor   = lipgloss.Color("#7D56F4")
-	SecondaryColor = lipgloss.Color("#04B575")
-	AccentColor    = lipgloss.Color("#EE6FF8")
-	WarningColor   = lipgloss.Color("#FFA100")
-	ErrorColor     = lipgloss.Color("#FF4C4C")
-	BgColor        = lipgloss.Color("#1A1B26")
-	FgColor        = lipgloss.Color("#C0CAF5")
-	SubtleColor    = lipgloss.Color("#565F89")
+	// Professional Noir/Oceanic Palette
+	PrimaryColor   = lipgloss.Color("#00D7FF") // Cyan
+	SecondaryColor = lipgloss.Color("#50FA7B") // Emerald
+	AccentColor    = lipgloss.Color("#BD93f9") // Purple
+	WarningColor   = lipgloss.Color("#FFB86C") // Orange
+	ErrorColor     = lipgloss.Color("#FF5555") // Red
+	BgColor        = lipgloss.Color("#282A36") // Dark Grey
+	FgColor        = lipgloss.Color("#F8F8F2") // Off-white
+	SubtleColor    = lipgloss.Color("#6272A4") // Muted Blue
 
-	// Styles
+	// Base Styles
 	TitleStyle = lipgloss.NewStyle().
 			Bold(true).
 			Foreground(PrimaryColor).
@@ -21,13 +21,11 @@ var (
 
 	HeaderStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(lipgloss.Color("#FFFFFF")).
+			Foreground(lipgloss.Color("#000000")).
 			Background(PrimaryColor).
-			Padding(0, 1).
-			MarginBottom(1)
-
-	InfoStyle = lipgloss.NewStyle().
-			Foreground(FgColor)
+			Padding(0, 2).
+			MarginBottom(1).
+			SetString("GITX")
 
 	LabelStyle = lipgloss.NewStyle().
 			Foreground(SecondaryColor).
@@ -37,8 +35,8 @@ var (
 			Foreground(FgColor)
 
 	BorderStyle = lipgloss.NewStyle().
-			Border(lipgloss.RoundedBorder()).
-			BorderForeground(PrimaryColor).
+			Border(lipgloss.DoubleBorder()).
+			BorderForeground(SubtleColor).
 			Padding(1, 2)
 
 	StatBoxStyle = lipgloss.NewStyle().
@@ -64,13 +62,19 @@ var (
 	AccentStyle = lipgloss.NewStyle().
 			Foreground(AccentColor)
 
-	KeywordStyle = lipgloss.NewStyle().
-			Foreground(AccentColor).
-			Bold(true)
+	// Icons (Text-based)
+	IconArrow   = ">>>"
+	IconDot     = "•"
+	IconInfo    = "[i]"
+	IconWarning = "[!]"
+	IconCheck   = "[OK]"
 )
 
-func GradientText(text string) string {
-	// Simple implementation for now, lipgloss doesn't have native multi-color gradients for strings easily
-	// but we can simulate it or just use a nice solid bold color.
-	return TitleStyle.Render(text)
+func BlockHeader(text string) string {
+	return lipgloss.NewStyle().
+		Bold(true).
+		Foreground(lipgloss.Color("#FFFFFF")).
+		Background(SubtleColor).
+		Padding(0, 1).
+		Render(text)
 }

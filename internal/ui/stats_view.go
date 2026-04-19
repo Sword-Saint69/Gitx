@@ -38,37 +38,36 @@ func (m StatsModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m StatsModel) View() string {
 	if m.err != nil {
-		return ErrorStyle.Render(fmt.Sprintf("Error: %v", m.err))
+		return ErrorStyle.Render("ERROR: " + m.err.Error())
 	}
 
 	if m.quitting {
 		return ""
 	}
 
-	// Build the view
 	var s strings.Builder
 
 	// Header
-	s.WriteString(HeaderStyle.Render(" 🔀 GITX - Repository Insights ") + "\n\n")
+	s.WriteString(HeaderStyle.Render(" INSIGHTS ") + "\n\n")
 
 	// Stats Grid
 	commitsBox := StatBoxStyle.Render(
 		lipgloss.JoinVertical(lipgloss.Center,
-			LabelStyle.Render("Commits"),
+			LabelStyle.Render("COMMITS"),
 			ValueStyle.Bold(true).Render(fmt.Sprintf("%d", m.stats.Commits)),
 		),
 	)
 
 	authorsBox := StatBoxStyle.Render(
 		lipgloss.JoinVertical(lipgloss.Center,
-			LabelStyle.Render("Contributors"),
+			LabelStyle.Render("AUTHORS"),
 			ValueStyle.Bold(true).Render(fmt.Sprintf("%d", m.stats.Contributors)),
 		),
 	)
 
 	branchesBox := StatBoxStyle.Render(
 		lipgloss.JoinVertical(lipgloss.Center,
-			LabelStyle.Render("Branches"),
+			LabelStyle.Render("BRANCHES"),
 			ValueStyle.Bold(true).Render(fmt.Sprintf("%d", m.stats.Branches)),
 		),
 	)
