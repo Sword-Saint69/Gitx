@@ -47,6 +47,23 @@ var (
 			Padding(0, 1).
 			MarginRight(2)
 
+	ErrorStyle = lipgloss.NewStyle().
+			Foreground(ErrorColor).
+			Bold(true)
+
+	SubtleStyle = lipgloss.NewStyle().
+			Foreground(SubtleColor)
+
+	PrimaryStyle = lipgloss.NewStyle().
+			Foreground(PrimaryColor).
+			Bold(true)
+
+	SecondaryStyle = lipgloss.NewStyle().
+			Foreground(SecondaryColor)
+
+	AccentStyle = lipgloss.NewStyle().
+			Foreground(AccentColor)
+
 	KeywordStyle = lipgloss.NewStyle().
 			Foreground(AccentColor).
 			Bold(true)

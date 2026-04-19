@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/charmbracelet/bubbletea"
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/user/gitx/internal/git"
 )
@@ -38,7 +38,7 @@ func (m StatsModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m StatsModel) View() string {
 	if m.err != nil {
-		return ErrorColor.Render(fmt.Sprintf("Error: %v", m.err))
+		return ErrorStyle.Render(fmt.Sprintf("Error: %v", m.err))
 	}
 
 	if m.quitting {
@@ -83,7 +83,7 @@ func (m StatsModel) View() string {
 
 	s.WriteString(BorderStyle.Render(info) + "\n\n")
 
-	s.WriteString(SubtleColor.Render("Press 'q' to exit"))
+	s.WriteString(SubtleStyle.Render("Press 'q' to exit"))
 
 	return s.String()
 }
