@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"strings"
 
@@ -39,7 +38,7 @@ func check(label, command string) {
 	} else {
 		val := strings.TrimSpace(string(out))
 		if val == "" {
-			fmt.Println(ui.WarningColor.Render("MISSING"))
+			fmt.Println(ui.WarningStyle.Render("MISSING"))
 		} else {
 			fmt.Println(ui.SecondaryStyle.Render(ui.IconCheck + " ") + ui.ValueStyle.Render(val))
 		}
