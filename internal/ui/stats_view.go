@@ -40,48 +40,28 @@ func (m StatsModel) View() string {
 	if m.err != nil {
 		return ErrorStyle.Render("ERROR: " + m.err.Error())
 	}
-
-	if m.quitting {
-		return ""
-	}
+	if m.quitting { return "" }
 
 	var s strings.Builder
 
-	// Header
-	s.WriteString(HeaderStyle.Render(" INSIGHTS ") + "\n\n")
+	// Top Section
+	s.WriteString(HeaderStyle.Render(" REPOSITORY INSIGHTS ") + "\n\n")
 
-	// Stats Grid
-	commitsBox := StatBoxStyle.Render(
-		lipgloss.JoinVertical(lipgloss.Center,
-			LabelStyle.Render("COMMITS"),
-			ValueStyle.Bold(true).Render(fmt.Sprintf("%d", m.stats.Commits)),
-		),
+	// High Level Metrics
+	metrics := lipgloss.JoinHorizontal(lipgloss.Top,
+		PanelStyle.Render(fmt.Sprintf("%s\n%s", PrimaryStyle.Render("COMMITS"), ValueStyle.Render(fmt.Sprintf("%d", m.stats.Commits)))),
+		PanelStyle.Render(fmt.Sprintf("%s\n%s", PrimaryStyle.Render("AUTHORS"), ValueStyle.Render(fmt.Sprintf("%d", m.stats.Contributors)))),
+		PanelStyle.Render(fmt.Sprintf("%s\n%s", PrimaryStyle.Render("BRANCHES"), ValueStyle.Render(fmt.Sprintf("%d", m.stats.Branches)))),
 	)
+	s.WriteString(metrics + "\n\n")
 
-	authorsBox := StatBoxStyle.Render(
-		lipgloss.JoinVertical(lipgloss.Center,
-			LabelStyle.Render("AUTHORS"),
-			ValueStyle.Bold(true).Render(fmt.Sprintf("%d", m.stats.Contributors)),
-		),
+	// Activity Summary Card
+	activityInfo := fmt.Sprintf("%s\n%s",
+		InfoField("Active Since:", m.stats.Age),
+		InfoField("Last Commit: ", m.stats.LastCommit.Format("2006-01-02 15:04")),
 	)
-
-	branchesBox := StatBoxStyle.Render(
-		lipgloss.JoinVertical(lipgloss.Center,
-			LabelStyle.Render("BRANCHES"),
-			ValueStyle.Bold(true).Render(fmt.Sprintf("%d", m.stats.Branches)),
-		),
-	)
-
-	s.WriteString(lipgloss.JoinHorizontal(lipgloss.Top, commitsBox, authorsBox, branchesBox) + "\n\n")
-
-	// Info section
-	info := lipgloss.JoinVertical(lipgloss.Left,
-		fmt.Sprintf("%s %s", LabelStyle.Render("Active Since:"), ValueStyle.Render(m.stats.Age)),
-		fmt.Sprintf("%s %s", LabelStyle.Render("Last Commit: "), ValueStyle.Render(m.stats.LastCommit.Format("2006-01-02 15:04"))),
-	)
-
-	s.WriteString(BorderStyle.Render(info) + "\n\n")
-
+	
+	s.WriteString(Card("Activity Summary", activityInfo) + "\n\n")
 	s.WriteString(SubtleStyle.Render("Press 'q' to exit"))
 
 	return s.String()
